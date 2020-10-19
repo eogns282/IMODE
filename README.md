@@ -1,7 +1,7 @@
 
 # Neural Ordinary Differential Equations for Intervention Modeling (IMODE)
 
-This repository is the official implemtation of [Neural Ordinary Differential Equations for Intervention Modeling](https://arxiv.org/)
+This repository is the official implemtation of [Neural Ordinary Differential Equations for Intervention Modeling](https://arxiv.org/abs/2010.08304)
 
 Real-world systems often involves external interventions that cause changes in the system dynamics such as a patient being administered with particular drug. We propose a novel neural ODE-based approach (IMODE) that properly model the effect of external interventions by employing two ODE functions to separately handle the observations and the interventions.
 ![IMODE Demo](demo/01_Decay_trajectory_simulation.gif)
