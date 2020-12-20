@@ -11,13 +11,14 @@ def boolean_string(s):
     return s == 'True'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--exp-name', type=str, default='decay_temp')
-parser.add_argument('--model-type', type=str, default='general',
-                    choices=['general', 'decay_with_rnn', 'decay_with_odernn', 'switch'])
-parser.add_argument('--epochs', type=int, default=1500)
+parser.add_argument('--exp-name', type=str, default='cde_temp')
+parser.add_argument('--model-type', type=str, default='cde',
+                    choices=['general', 'decay_with_rnn', 'decay_with_odernn', 'cde', 'switch', 'adaptive', 'adaptive_2'])
+parser.add_argument('--epochs', type=int, default=1000)
 parser.add_argument('--batch-size', type=int, default=32)
 parser.add_argument('--gpu-num', type=int, default=0)
-parser.add_argument('--use-rk4', type=boolean_string, default=True)
+parser.add_argument('--activation-fn', type=str, default='LeakyReLU', choices=['LeakyReLU', 'Softplus'])
+parser.add_argument('--use-rk4', type=boolean_string, default=False)
 parser.add_argument('--l2-coeff', type=float, default=0.000001)
 parser.add_argument('--ode-delta-t', type=float, default=0.01)
 parser.add_argument('--cv-idx', type=int, default=0, choices=[0, 1, 2, 3, 4])

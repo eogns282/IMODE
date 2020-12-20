@@ -173,7 +173,7 @@ class Trainer_decay:
             'best_epoch': self.best_epoch
         }, "./save/{}/final_model".format(self.exp_name))
 
-        df_file_name = "./results/{}/synthetic.csv".format('self.exp_name')
+        df_file_name = "./results/{}/synthetic.csv".format(self.exp_name)
         df_res = pd.DataFrame(
             {"Name": [self.exp_name], "MSE": [self.best_mse], "best_epoch": [self.best_epoch],
              "cv-idx": [self.cv_idx]})
@@ -346,7 +346,7 @@ class Trainer_collision:
             'best_epoch': self.best_epoch
         }, "./save/{}/final_model".format(self.exp_name))
 
-        df_file_name = "./results/{}/collision.csv".format('self.exp_name')
+        df_file_name = "./results/{}/collision.csv".format(self.exp_name)
         df_res = pd.DataFrame(
             {"Name": [self.exp_name], "MSE": [self.best_mse], "best_epoch": [self.best_epoch],
              "cv-idx": [self.cv_idx]})
@@ -513,7 +513,7 @@ class Trainer_eicu:
             'best_epoch': self.best_epoch
         }, "./save/{}/final_model".format(self.exp_name))
 
-        df_file_name = "./results/{}/eicu.csv".format('self.exp_name')
+        df_file_name = "./results/{}/eicu.csv".format(self.exp_name)
         df_res = pd.DataFrame(
             {"Name": [self.exp_name], "MSE": [self.best_mse], "best_epoch": [self.best_epoch],
              "cv-idx": [self.cv_idx]})

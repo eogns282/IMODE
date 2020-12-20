@@ -41,7 +41,7 @@ class Evaluator_decay:
         self.dl_val = DataLoader(dataset=data_val, shuffle=False, collate_fn=decay_collate,
                                  batch_size=len(data_val))
         self.dl_test = DataLoader(dataset=data_test, shuffle=False, collate_fn=decay_collate,
-                                  batch_size=len(data_test))
+                                  batch_size=1)
         self.dl_train = DataLoader(dataset=data_train, shuffle=True, collate_fn=decay_collate,
                                    batch_size=batch_size)
 
@@ -62,22 +62,33 @@ class Evaluator_decay:
         self.test_loss = 0
         self.test_instance_num = 0
 
+        self.interv_inst_count = 0
+        self.no_interv_inst_count = 0
+
+        self.interv_all_nfe = 0
+        self.no_interv_all_nfe = 0
+
         with torch.no_grad():
             for i, b in tqdm.tqdm(enumerate(self.dl_test)):
                 t = b["t"].float()
                 x = b["obs"].float().to(self.ode_func.device)
                 a = b["itv"].float().to(self.ode_func.device)
                 pred_x, _ = self.ode_func(x, a, t)
-
                 loss = torch.mean(torch.pow(pred_x - x, 2))
                 inst_num = torch.ones_like(pred_x).sum().item()
                 self.test_loss += loss.item() * inst_num
                 self.test_instance_num += inst_num
+                print(i)
+
+                print('current average of nfe in interv time step: ', self.ode_func.nfe_yes / self.ode_func.inst_yes)
+                print('current average of nfe in no interv time step: ', self.ode_func.nfe_no / self.ode_func.inst_no)
 
             self.test_loss /= self.test_instance_num
             self.obs = x
             self.itv = a
             self.pred_x = pred_x
+            print('final average of nfe in interv time step: ', self.ode_func.nfe_yes / self.ode_func.inst_yes)
+            print('final average of nfe in no interv time step: ', self.ode_func.nfe_no / self.ode_func.inst_no)
 
     def run(self):
         self._test_phase()
@@ -128,7 +139,7 @@ class Evaluator_collision:
         self.dl_val = DataLoader(dataset=data_val, shuffle=False, collate_fn=collision_collate,
                                  batch_size=len(data_test))
         self.dl_test = DataLoader(dataset=data_test, shuffle=False, collate_fn=collision_collate,
-                                  batch_size=len(data_test))
+                                  batch_size=1)
 
     def _load_checkpoint(self):
         checkpoint = torch.load('./save/{}/best_model'.format(self.exp_name))
@@ -159,10 +170,17 @@ class Evaluator_collision:
                 self.test_loss += loss.item() * inst_num
                 self.test_instance_num += inst_num
 
+                print(i)
+
+                print('current average of nfe in interv time step: ', self.ode_func.nfe_yes / self.ode_func.inst_yes)
+                print('current average of nfe in no interv time step: ', self.ode_func.nfe_no / self.ode_func.inst_no)
+
             self.test_loss /= self.test_instance_num
             self.obs = x
             self.itv = a
             self.pred_x = pred_x
+            print('final average of nfe in interv time step: ', self.ode_func.nfe_yes / self.ode_func.inst_yes)
+            print('final average of nfe in no interv time step: ', self.ode_func.nfe_no / self.ode_func.inst_no)
 
     def run(self):
         self._test_phase()
@@ -213,7 +231,7 @@ class Evaluator_eicu:
         self.dl_val = DataLoader(dataset=data_test, shuffle=False, collate_fn=eicu_collate,
                                  batch_size=len(data_val))
         self.dl_test = DataLoader(dataset=data_test, shuffle=False, collate_fn=eicu_collate,
-                                  batch_size=len(data_test))
+                                  batch_size=1)
 
     def _load_checkpoint(self):
         checkpoint = torch.load('./save/{}/best_model'.format(self.exp_name))
@@ -244,10 +262,17 @@ class Evaluator_eicu:
                 self.test_loss += loss.item() * inst_num
                 self.test_instance_num += inst_num
 
+                print(i)
+
+                print('current average of nfe in interv time step: ', self.ode_func.nfe_yes / self.ode_func.inst_yes)
+                print('current average of nfe in no interv time step: ', self.ode_func.nfe_no / self.ode_func.inst_no)
+
             self.test_loss /= self.test_instance_num
             self.obs = x
             self.itv = a
             self.pred_x = pred_x
+            print('final average of nfe in interv time step: ', self.ode_func.nfe_yes / self.ode_func.inst_yes)
+            print('final average of nfe in no interv time step: ', self.ode_func.nfe_no / self.ode_func.inst_no)
 
     def run(self):
         self._test_phase()
