@@ -11,9 +11,9 @@ def boolean_string(s):
     return s == 'True'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--exp-name', type=str, default='collision_w_h_dopri_bp_05')
+parser.add_argument('--exp-name', type=str, default='collision_temp')
 parser.add_argument('--model-type', type=str, default='adaptive',
-                    choices=['general', 'decay_with_rnn', 'decay_with_odernn', 'switch', 'adaptive', 'adaptive_2'])
+                    choices=['adaptive'])
 parser.add_argument('--epochs', type=int, default=1000)
 parser.add_argument('--batch-size', type=int, default=32)
 parser.add_argument('--gpu-num', type=int, default=0)
@@ -30,7 +30,7 @@ parser.add_argument('--x-hidden-size', type=int, default=40)
 parser.add_argument('--a-hidden-size', type=int, default=40)
 parser.add_argument('--num-steps', type=int, default=51)
 parser.add_argument('--use-scheduler', type=boolean_string, default=False)
-parser.add_argument('--test-phase', type=boolean_string, default=True)
+parser.add_argument('--test-phase', type=boolean_string, default=False)
 
 args = parser.parse_args()
 

@@ -11,9 +11,9 @@ def boolean_string(s):
     return s == 'True'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--exp-name', type=str, default='cde_temp')
-parser.add_argument('--model-type', type=str, default='cde',
-                    choices=['general', 'decay_with_rnn', 'decay_with_odernn', 'cde', 'switch', 'adaptive', 'adaptive_2'])
+parser.add_argument('--exp-name', type=str, default='decay_temp')
+parser.add_argument('--model-type', type=str, default='adaptive',
+                    choices=['adaptive'])
 parser.add_argument('--epochs', type=int, default=1000)
 parser.add_argument('--batch-size', type=int, default=32)
 parser.add_argument('--gpu-num', type=int, default=0)
